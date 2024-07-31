@@ -5,6 +5,7 @@ import ClicksButton from "./components/ClicksButton/ClicksButton";
 import CustomButton from "./components/CustomButton/CustomButton";
 import { useState } from "react";
 import Section from "./components/Section/Section";
+import Modal from "./components/Modal/Modal";
 
 function App() {
   const [bottles, setBottles] = useState({
@@ -28,6 +29,8 @@ function App() {
   };
 
   const total = bottles.beer + bottles.wine + bottles.whiskey;
+
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <Section title="Section Bar">
@@ -43,8 +46,14 @@ function App() {
       <CustomButton message="Playing music!">Play</CustomButton>
       <CustomButton message="Uploading your data">Upload</CustomButton>
       <ClicksButton />
-
       <ClickCounter />
+
+      <div>
+        <button onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? "Stop" : "Start"}
+        </button>
+        {isOpen && <Modal />}
+      </div>
     </>
   );
 }
