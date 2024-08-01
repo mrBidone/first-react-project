@@ -30,7 +30,13 @@ function App() {
 
   const total = bottles.beer + bottles.wine + bottles.whiskey;
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const onOpenModal = () => {
+    setIsModalOpen(true);
+  };
+  const onCloseModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <Section title="Section Bar">
@@ -48,12 +54,12 @@ function App() {
       <ClicksButton />
       <ClickCounter />
 
-      <div>
-        <button onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? "Stop" : "Start"}
+      <Section title={"Modal section"}>
+        <button onClick={() => setIsModalOpen(!isModalOpen)}>
+          {isModalOpen ? "Stop" : "Start"}
         </button>
-        {isOpen && <Modal />}
-      </div>
+        {isModalOpen && <Modal onCloseModal={onCloseModal} />}
+      </Section>
     </>
   );
 }

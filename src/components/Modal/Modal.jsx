@@ -1,17 +1,58 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import css from "./Modal.module.css";
 
-const Modal = () => {
+const Modal = ({ onCloseModal }) => {
+  const [counter, setCounter] = useState(() => {
+    return Number(localStorage.getItem("counter") ?? 0);
+  });
+
   useEffect(() => {
-    // Зберігаємо ідентифікатор інтервалу в змінну
-    const intervalId = setInterval(() => {
-      console.log(`Interval - ${Date.now()}`);
-    }, 2000);
-    // Очищаємо інтервал за його ідентифікатором
-    return () => {
-      clearInterval(intervalId);
+    localStorage.setItem("counter", counter);
+  }, [counter]);
+
+  // Этап монтування.
+  useEffect(() => {
+    const handleKeyDown = () => {
+      if (event.code === "Escape") {
+        onCloseModal();
+      }
     };
-  }, []);
-  return <div>UseEffect with interval.</div>;
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Этап розмонтування
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onCloseModal]);
+
+  const handleBackDropClick = (event) => {
+    if (event.target === event.currentTarget) {
+      onCloseModal();
+    }
+  };
+
+  return (
+    <div onClick={handleBackDropClick} className={css.backdrop}>
+      <div className={css.modal}>
+        <button
+          className={css.closeModalBtn}
+          type="button"
+          aria-label="Close modal window"
+          onClick={onCloseModal}
+        >
+          &times;
+        </button>
+        <h3 className={css.title}>Modal</h3>
+        <p className={css.text}>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta, rem!
+        </p>
+        <button type="button" onClick={() => setCounter(counter + 1)}>
+          Click to increment: {counter}
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default Modal;
