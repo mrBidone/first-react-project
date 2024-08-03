@@ -1,3 +1,4 @@
+import ControlledLoginForm from "./components/ControlledLoginForm/ControlledLoginForm";
 import LangSwitcher from "./components/LangSwitcher/LangSwitcher";
 import LoginForm from "./components/LoginForm/LoginForm";
 import SearchBar from "./components/SearchBar/SearchBar";
@@ -22,6 +23,9 @@ function App() {
       <Section title={"Select"}>
         <p>Selected language: {lang}</p>
         <LangSwitcher value={lang} onSelect={setLang} />
+      </Section>
+      <Section title={"Controlled login form"}>
+        <ControlledLoginForm />
       </Section>
     </>
   );
