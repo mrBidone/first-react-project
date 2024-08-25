@@ -11,10 +11,11 @@ import AddProfileForm from "./components/AddProfileForm/AddProfileForm";
 
 function App() {
   const [users, setUsers] = useState(dataFromServer);
+  const [filterValue, setFilterValue] = useState("");
+
   const handleClick = (userName) => {
     console.log("name: ", userName);
   };
-  const [filterValue, setFilterValue] = useState("");
 
   const handleFilter = (e) => {
     const value = e.target.value;
