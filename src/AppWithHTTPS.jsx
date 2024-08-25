@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Loader from "./components/Loader/Loader";
-import { requestAllPosts } from "./services/api";
 import SearchPostsForm from "./components/SearchPostsForm/SearchPostsForm";
+import { requestAllPosts, requestPostsBySearchValue } from "./services/api";
 
 const AppWithHTTPS = () => {
   const [posts, setPosts] = useState(null);
@@ -59,8 +59,8 @@ const AppWithHTTPS = () => {
       )}
       {Array.isArray(posts) && posts.length === 0 && (
         <p>
-          За Вашим запитом не знайдено жодного поста. Спробуйте, будь ласка, з
-          іншим запитом.
+          За Вашим запитом "{searchValue}" не знайдено жодного поста. Спробуйте,
+          будь ласка, з іншим запитом.
         </p>
       )}
       {Array.isArray(posts) &&
